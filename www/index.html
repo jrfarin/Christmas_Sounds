@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8" >
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width" >
+	<title>Christmas Sounds</title >
+
+	<link href="lib/ionic/css/ionic.css" rel="stylesheet" >
+	<link href="css/style.css"rel="stylesheet" >
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="cordova.js"></script>
+	<script src="js/app.js"></script>
+	
+</head>
+<body ng-app="noelSounds">
+
+<ion-pane ng-controller="NoelSoundsCtrl">
+	
+	<ion-header-bar class="bar-royal">
+	    <div class="buttons">
+	        <button class="button button-icon ion-ios-minus-outline"
+	                ng-click="model.showDelete = !model.showDelete; model.showMove = false;">
+	        </button>
+	    </div>
+	    <h1 class="title">Christmas Sounds</h1>
+	    <div class="buttons">
+	        <button class="button button-icon ion-ios-color-filter-outline"
+	                ng-click="model.showMove = !model.showMove; model.showDelete = false;">
+	        </button>
+	    </div>
+	</ion-header-bar>
+	
+    <ion-content>
+		<ion-list show-delete="model.showDelete" show-reorder="model.showMove">
+			<ion-item class="item item-thumbnail-left item-icon-right item-remove-animate" 
+                      ng-repeat="sound in model.sounds"
+                      ng-click="play(sound)">
+                <img ng-src="{{ sound.img }}" alt="">
+			    <h2>{{ sound.title }}</h2>
+			    <p>{{ sound.description }}</p>
+			    <i class="icon ion-ios-arrow-forward"></i>
+			    
+			    <ion-delete-button 
+                    ng-click="deleteSound($index)" 
+                    class="ion-minus-circled">        
+			    </ion-delete-button>
+			    <ion-reorder-button 
+                    class="ion-navicon"
+                    on-reorder="moveSound(sound, $fromIndex, $toIndex)">      
+			    </ion-reorder-button>
+			</ion-item>
+		</ion-list>
+	</ion-content>
+	
+</ion-pane>
+</body>
+</html>
